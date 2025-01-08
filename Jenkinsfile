@@ -7,7 +7,7 @@ pipeline {
                     // Создание виртуальной среды
                     sh 'python3 -m venv .venv'
                     // Установка зависимостей из requirements.txt
-                    sh '.venv/bin/pip install -r ./requirements.txt'
+                    sh '.venv/bin/pip install -r /Users/mac/Desktop/myproject/requirements.txt'
                     // Вывод списка установленных пакетов для отладки
                     sh '.venv/bin/pip list'
                 }

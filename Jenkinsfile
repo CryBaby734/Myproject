@@ -1,23 +1,27 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
                 script {
-                    sh './gradlew clean build'
+
+                    sh 'python3 -m venv .venv'
+                    sh '.venv/bin/pip install -r requirements.txt'
                 }
             }
         }
         stage('Test') {
             steps {
                 script {
-                    sh './gradlew test'
+
+                    sh '.venv/bin/python -m pytest'
                 }
             }
         }
         stage('Docker Build') {
             steps {
                 script {
+
                     sh 'docker-compose build'
                 }
             }
@@ -25,6 +29,7 @@ pipeline {
         stage('Docker Compose Up') {
             steps {
                 script {
+
                     sh 'docker-compose up -d'
                 }
             }

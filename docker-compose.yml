@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-new
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root7769
+      POSTGRES_DB: myprojectdb
+    ports:
+      - "5434:5432"
+
+  django:
+    build:
+      context: .
+    container_name: django-app
+    image: django-app
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: myproject.settings
+      DATABASE_URL: postgres://postgres:root7769@postgres:5432/myprojectdb
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+
+  jenkins:
+    container_name: jenkins-new
+    image: jenkins/jenkins:lts
+    ports:
+      - "8585:8080"
+      - "50002:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+volumes:
+  jenkins_home:

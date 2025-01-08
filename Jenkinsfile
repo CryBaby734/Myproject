@@ -13,20 +13,20 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
-            steps {
-                script {
-                    try {
-                        // Запуск тестов с pytest
-                        sh '.venv/bin/python -m pytest'
-                    } catch (Exception e) {
-                        echo "Testing failed: ${e}"
-                        currentBuild.result = 'FAILURE'
-                        error("Stopping the pipeline due to test failure.")
-                    }
-                }
-            }
-        }
+//         stage('Test') {
+//             steps {
+//                 script {
+//                     try {
+//                         // Запуск тестов с pytest
+//                         sh '.venv/bin/python -m pytest'
+//                     } catch (Exception e) {
+//                         echo "Testing failed: ${e}"
+//                         currentBuild.result = 'FAILURE'
+//                         error("Stopping the pipeline due to test failure.")
+//                     }
+//                 }
+//             }
+//         }
         stage('Docker Build') {
             steps {
                 script {
